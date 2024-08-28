@@ -177,6 +177,8 @@ impl<'a> CGroupRecurser<'a> {
                 .gauge("cgroup_memory_anon_bytes", stat.anon as f64, tags.clone());
             self.output
                 .gauge("cgroup_memory_file_bytes", stat.file as f64, tags.clone());
+            self.output
+                .gauge("cgroup_memory_inactive_file_bytes", stat.inactive_file as f64, tags.clone());
         }
     }
 }
@@ -389,6 +391,7 @@ define_stat_struct! { MemoryStat(
     // for more details.
     anon,
     file,
+    inactive_file,
 )}
 
 fn is_dir(path: impl AsRef<Path>) -> bool {
